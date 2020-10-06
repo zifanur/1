@@ -32,11 +32,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="mainwindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Filter Include="Generated">
+      <UniqueIdentifier>{fa01ff97-2af5-4d1d-bc7b-a7add3943d99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,10 +43,19 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="x64\Debug\moc_mainwindow.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="x64\Release\moc_mainwindow.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mainwindow.ui">
+    <CustomBuild Include="mainwindow.ui">
       <Filter>Forms</Filter>
-    </None>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
