@@ -19,8 +19,8 @@
 
 // zifanur@hotmail.com
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef __MAINWINDOW_H
+#define __MAINWINDOW_H
 
 #include <QMainWindow>
 
@@ -28,15 +28,16 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindow: public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *a = nullptr);
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow *m_ui;
 };
-#endif // MAINWINDOW_H
+
+#endif // __MAINWINDOW_H

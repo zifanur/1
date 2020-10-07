@@ -20,13 +20,12 @@
 // zifanur@hotmail.com
 
 #include "mainwindow.h"
-
 #include <QApplication>
 
-int main(int argc, char *argv[])
+int main(int a_argc, char *a_argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    QApplication l_app(a_argc, a_argv);
+    MainWindow l_mw;
+    l_mw.show();
+    return l_app.exec();
 }
