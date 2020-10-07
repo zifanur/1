@@ -37,6 +37,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="framearea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,13 +52,22 @@
     <ClCompile Include="x64\Release\moc_mainwindow.cpp">
       <Filter>Generated</Filter>
     </ClCompile>
+    <ClCompile Include="x64\Debug\moc_framearea.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="x64\Release\moc_framearea.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="mainwindow.ui">
-      <Filter>Forms</Filter>
+    <CustomBuild Include="framearea.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.ui">
+      <Filter>Forms</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

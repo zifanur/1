@@ -19,25 +19,31 @@
 
 // zifanur@hotmail.com
 
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "framearea.h"
+#ifndef __FRAMEAREA_H
+#define __FRAMEAREA_H
 
-MainWindow::MainWindow(QWidget *a):
-    QMainWindow(a), m_ui(new Ui::MainWindow), m_fa(new FrameArea(this))
-{
-    m_ui->setupUi(this);
-    m_fa->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    connect(m_fa, SIGNAL(sResize(QSize)), SLOT(onResize(QSize)));
-    m_ui->verticalLayout_left->insertWidget(0, m_fa);
-}
+#include <QWidget>
 
-MainWindow::~MainWindow()
-{
-    delete m_ui;
-}
+class QImage;
 
-void MainWindow::onResize(QSize a)
+class FrameArea: public QWidget
 {
-    m_ui->lineEdit_res->setText(QString("%1x%2").arg(a.width()).arg(a.height()));
-}
+    Q_OBJECT
+
+public:
+    FrameArea(QWidget *a = nullptr);
+    void setImage(QImage &&a);
+    const QImage &image() const;
+
+signals:
+    void sResize(QSize a);
+
+protected:
+    void paintEvent(QPaintEvent *a) override;
+    void resizeEvent(QResizeEvent *a) override;
+
+private:
+    QImage m_i;
+};
+
+#endif // __FRAMEAREA_H

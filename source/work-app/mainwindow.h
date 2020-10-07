@@ -28,6 +28,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class FrameArea;
+
 class MainWindow: public QMainWindow
 {
     Q_OBJECT
@@ -36,8 +38,12 @@ public:
     MainWindow(QWidget *a = nullptr);
     ~MainWindow();
 
+protected slots:
+    void onResize(QSize a);
+
 private:
-    Ui::MainWindow *m_ui;
+    Ui::MainWindow *m_ui = nullptr;
+    FrameArea *m_fa = nullptr;
 };
 
 #endif // __MAINWINDOW_H

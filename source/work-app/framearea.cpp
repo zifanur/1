@@ -19,25 +19,32 @@
 
 // zifanur@hotmail.com
 
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "framearea.h"
+#include <QImage>
+#include <QPainter>
+#include <QResizeEvent>
 
-MainWindow::MainWindow(QWidget *a):
-    QMainWindow(a), m_ui(new Ui::MainWindow), m_fa(new FrameArea(this))
+FrameArea::FrameArea(QWidget *a):
+    QWidget(a)
+{}
+
+void FrameArea::setImage(QImage &&a)
 {
-    m_ui->setupUi(this);
-    m_fa->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    connect(m_fa, SIGNAL(sResize(QSize)), SLOT(onResize(QSize)));
-    m_ui->verticalLayout_left->insertWidget(0, m_fa);
+    m_i = std::move(a);
 }
 
-MainWindow::~MainWindow()
+const QImage &FrameArea::image() const
 {
-    delete m_ui;
+    return m_i;
 }
 
-void MainWindow::onResize(QSize a)
+void FrameArea::paintEvent(QPaintEvent *a)
 {
-    m_ui->lineEdit_res->setText(QString("%1x%2").arg(a.width()).arg(a.height()));
+    QPainter l_p(this);
+    l_p.drawImage(rect(), m_i);
+}
+
+void FrameArea::resizeEvent(QResizeEvent *a)
+{
+    emit sResize(a->size());
 }
