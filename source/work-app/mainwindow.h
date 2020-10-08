@@ -19,8 +19,8 @@
 
 // zifanur@hotmail.com
 
-#ifndef __MAINWINDOW_H
-#define __MAINWINDOW_H
+#ifndef __WORK_APP_MAINWINDOW_H
+#define __WORK_APP_MAINWINDOW_H
 
 #include <QMainWindow>
 
@@ -46,4 +46,4 @@ private:
     FrameArea *m_fa = nullptr;
 };
 
-#endif // __MAINWINDOW_H
+#endif // __WORK_APP_MAINWINDOW_H

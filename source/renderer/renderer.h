@@ -18,32 +18,3 @@
 */
 
 // zifanur@hotmail.com
-
-#ifndef __WORK_APP_FRAMEAREA_H
-#define __WORK_APP_FRAMEAREA_H
-
-#include <QWidget>
-
-class QImage;
-
-class FrameArea: public QWidget
-{
-    Q_OBJECT
-
-public:
-    FrameArea(QWidget *a = nullptr);
-    void setImage(QImage &&a);
-    const QImage &image() const;
-
-signals:
-    void sResize(QSize a);
-
-protected:
-    void paintEvent(QPaintEvent *a) override;
-    void resizeEvent(QResizeEvent *a) override;
-
-private:
-    QImage m_i;
-};
-
-#endif // __WORK_APP_FRAMEAREA_H
