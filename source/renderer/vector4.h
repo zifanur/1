@@ -19,5 +19,19 @@
 
 // zifanur@hotmail.com
 
-#include "vector4.h"
-#include "matrix4.h"
+#ifndef __RENDERER_VECTOR4_H
+#define __RENDERER_VECTOR4_H
+
+namespace zifanur
+{
+    struct vector4
+    {
+        union
+        {
+            float m[4] = { 0, 0, 0, 1 };
+            struct { float x, y, z, w; };
+        };
+    };
+}
+
+#endif // __RENDERER_VECTOR4_H

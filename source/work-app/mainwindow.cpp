@@ -37,6 +37,9 @@ MainWindow::~MainWindow()
     delete m_ui;
 }
 
+void MainWindow::on_pushButton_doIt_clicked()
+{}
+
 void MainWindow::onResize(QSize a)
 {
     m_ui->lineEdit_res->setText(QString("%1x%2").arg(a.width()).arg(a.height()));

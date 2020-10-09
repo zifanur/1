@@ -18,3 +18,14 @@
 */
 
 // zifanur@hotmail.com
+
+#ifndef __RENDERER_RENDERER_H
+#define __RENDERER_RENDERER_H
+
+namespace zifanur
+{
+    class renderer
+    {};
+}
+
+#endif //__RENDERER_RENDERER_H

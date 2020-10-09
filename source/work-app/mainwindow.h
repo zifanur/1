@@ -38,6 +38,9 @@ public:
     MainWindow(QWidget *a = nullptr);
     ~MainWindow();
 
+public slots:
+    void on_pushButton_doIt_clicked();
+
 protected slots:
     void onResize(QSize a);
 
