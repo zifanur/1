@@ -22,10 +22,32 @@
 #ifndef __RENDERER_RENDERER_H
 #define __RENDERER_RENDERER_H
 
+#include "f_rgb.h"
+#include "matrix4.h"
+
 namespace zifanur
 {
     class renderer
-    {};
+    {
+    public:
+        renderer();
+        ~renderer();
+
+        void set_buf_size(unsigned a_width, unsigned a_height);
+        unsigned buf_width() const { return m_buf_width; }
+        unsigned buf_height() const { return m_buf_height; }
+
+        void set_fov(float a_h_ratio, float a_v_ratio);
+
+    private:
+        void calc_buf_to_cam();
+
+        unsigned m_buf_width = 0, m_buf_height = 0;
+        f_rgb *m_acc = nullptr;
+
+        float m_h_ratio = 1, m_v_ratio = 1;
+        matrix4 m_buf_to_cam;
+    };
 }
 
 #endif //__RENDERER_RENDERER_H

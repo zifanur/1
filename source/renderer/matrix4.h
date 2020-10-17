@@ -30,9 +30,19 @@ namespace zifanur
     {
         union
         {
-            float m[4][4] = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 1 } };
+            float m[4][4];
             struct { float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44; };
         };
+
+        matrix4(float a11 = 1, float a12 = 0, float a13 = 0, float a14 = 0,
+                float a21 = 0, float a22 = 1, float a23 = 0, float a24 = 0,
+                float a31 = 0, float a32 = 0, float a33 = 1, float a34 = 0,
+                float a41 = 0, float a42 = 0, float a43 = 0, float a44 = 1):
+            m11(a11), m12(a12), m13(a13), m14(a14),
+            m21(a21), m22(a22), m23(a23), m24(a24),
+            m31(a31), m32(a32), m33(a33), m34(a34),
+            m41(a41), m42(a42), m43(a43), m44(a44)
+        {}
     };
 
     template <int t_l, int t_m, int t_n>

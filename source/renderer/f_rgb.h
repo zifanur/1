@@ -19,23 +19,15 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_VECTOR4_H
-#define __RENDERER_VECTOR4_H
+#ifndef __RENDERER_F_RGB_H
+#define __RENDERER_F_RGB_H
 
 namespace zifanur
 {
-    struct vector4
+    struct f_rgb
     {
-        union
-        {
-            float m[4];
-            struct { float x, y, z, w; };
-        };
-
-        vector4(float a_x = 0, float a_y = 0, float a_z = 0, float a_w = 1):
-            x(a_x), y(a_y), z(a_z), w(a_w)
-        {}
+        float b = 0, g = 0, r = 0;
     };
 }
 
-#endif // __RENDERER_VECTOR4_H
+#endif // __RENDERER_F_RGB_H

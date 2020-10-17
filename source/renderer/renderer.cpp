@@ -19,5 +19,32 @@
 
 // zifanur@hotmail.com
 
-#include "vector4.h"
-#include "matrix4.h"
+#include "renderer.h"
+
+namespace zifanur
+{
+    renderer::renderer() {}
+
+    renderer::~renderer() { delete []m_acc; }
+
+    void renderer::set_buf_size(unsigned a_width, unsigned a_height)
+    {
+        delete []m_acc; m_acc = nullptr;
+        m_buf_width = m_buf_height = 0;
+        m_acc = new f_rgb[size_t(a_width) * a_height];
+        m_buf_width = a_width;  m_buf_height = a_height;
+        calc_buf_to_cam();
+    }
+
+    void renderer::set_fov(float a_h_ratio, float a_v_ratio)
+    {
+        m_h_ratio = a_h_ratio, m_v_ratio = a_v_ratio;
+        calc_buf_to_cam();
+    }
+
+    void renderer::calc_buf_to_cam()
+    {
+        m_buf_to_cam = matrix4(m_h_ratio / m_buf_width, 0, 0, m_h_ratio / 2 * (1.0f / m_buf_width - 1),
+                                0, -m_v_ratio / m_buf_height, 0, m_v_ratio / 2 * (1 - 1.0f / m_buf_height));
+    }
+}

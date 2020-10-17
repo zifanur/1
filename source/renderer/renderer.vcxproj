@@ -99,6 +99,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="f_rgb.h" />
     <ClInclude Include="matrix4.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="vector4.h" />
