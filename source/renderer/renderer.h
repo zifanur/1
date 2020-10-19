@@ -39,6 +39,9 @@ namespace zifanur
 
         void set_fov(float a_h_ratio, float a_v_ratio);
 
+        inline static matrix4 look_at(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up);
+        void set_cam(const matrix4 &a) { m_cam = a; }
+
     private:
         void calc_buf_to_cam();
 
@@ -47,7 +50,11 @@ namespace zifanur
 
         float m_h_ratio = 1, m_v_ratio = 1;
         matrix4 m_buf_to_cam;
+
+        matrix4 m_cam;
     };
 }
+
+#include "renderer-inline.h"
 
 #endif //__RENDERER_RENDERER_H

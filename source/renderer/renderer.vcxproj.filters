@@ -46,6 +46,12 @@
     <ClInclude Include="f_rgb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="renderer-inline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="renderer.cpp">

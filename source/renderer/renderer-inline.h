@@ -19,37 +19,23 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_VECTOR4_H
-#define __RENDERER_VECTOR4_H
+#ifndef __RENDERER_RENDERER_INLINE_H
+#define __RENDERER_RENDERER_INLINE_H
 
-#include "vector3.h"
+#include "renderer.h"
 
 namespace zifanur
 {
-    struct vector4
+    inline matrix4 renderer::look_at(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up)
     {
-        union
-        {
-            float m[4];
-            struct
-            {
-                union
-                {
-                    vector3 v3;
-                    struct { float x, y, z; };
-                };
-                float w;
-            };
-        };
-
-        vector4(float a_x = 0, float a_y = 0, float a_z = 0, float a_w = 1):
-            v3(a_x, a_y, a_z), w(a_w)
-        {}
-
-        vector4(const vector3 &a_v3, float a_w = 1):
-            v3(a_v3), w(a_w)
-        {}
-    };
+        //https://docs.microsoft.com/en-us/windows/win32/direct3d9/d3dxmatrixlookatlh
+        const vector3 l_z(normalized(a_to - a_from));
+        const vector3 l_x(normalized(cross(l_z, a_up)));
+        const vector3 l_y(cross(l_x, l_z));
+        return matrix4(vector4(l_x, -dot(l_x, a_from)),
+                        vector4(l_y, -dot(l_y, a_from)),
+                        vector4(l_z, -dot(l_z, a_from)));
+    }
 }
 
-#endif // __RENDERER_VECTOR4_H
+#endif //__RENDERER_RENDERER_INLINE_H

@@ -31,17 +31,19 @@ namespace zifanur
         union
         {
             float m[4][4];
+            vector4 v4[4];
             struct { float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44; };
         };
 
-        matrix4(float a11 = 1, float a12 = 0, float a13 = 0, float a14 = 0,
-                float a21 = 0, float a22 = 1, float a23 = 0, float a24 = 0,
-                float a31 = 0, float a32 = 0, float a33 = 1, float a34 = 0,
-                float a41 = 0, float a42 = 0, float a43 = 0, float a44 = 1):
-            m11(a11), m12(a12), m13(a13), m14(a14),
-            m21(a21), m22(a22), m23(a23), m24(a24),
-            m31(a31), m32(a32), m33(a33), m34(a34),
-            m41(a41), m42(a42), m43(a43), m44(a44)
+        matrix4(float a_11 = 1, float a_12 = 0, float a_13 = 0, float a_14 = 0,
+                float a_21 = 0, float a_22 = 1, float a_23 = 0, float a_24 = 0,
+                float a_31 = 0, float a_32 = 0, float a_33 = 1, float a_34 = 0,
+                float a_41 = 0, float a_42 = 0, float a_43 = 0, float a_44 = 1):
+            v4{{a_11, a_12, a_13, a_14}, {a_21, a_22, a_23, a_24}, {a_31, a_32, a_33, a_34}, {a_41, a_42, a_43, a_44}}
+        {}
+
+        matrix4(const vector4 &a_r1, const vector4 &a_r2, const vector4 &a_r3, const vector4 &a_r4 = vector4()):
+            v4{a_r1, a_r2, a_r3, a_r4}
         {}
     };
 
@@ -57,11 +59,11 @@ namespace zifanur
             }
     }
 
-    inline matrix4 operator *(const matrix4 &o, const matrix4 &a)
+    inline matrix4 operator *(const matrix4 &a_o, const matrix4 &a_a)
     {
         matrix4 l;
-        multiply<4, 4, 4>(reinterpret_cast<const float *>(o.m),
-                            reinterpret_cast<const float *>(a.m), reinterpret_cast<float *>(l.m));
+        multiply<4, 4, 4>(reinterpret_cast<const float *>(a_o.m),
+                            reinterpret_cast<const float *>(a_a.m), reinterpret_cast<float *>(l.m));
         return l;
     }
 
