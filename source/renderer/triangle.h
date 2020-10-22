@@ -19,21 +19,17 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_OBJECT_H
-#define __RENDERER_OBJECT_H
+#ifndef __RENDERER_TRIANGLE_H
+#define __RENDERER_TRIANGLE_H
+
+#include "vector3.h"
 
 namespace zifanur
 {
-    class object
+    struct triangle
     {
-    public:
-        object() {}
-
-        object(const object &a) = delete;
-        object &operator =(const object &a) = delete;
-
-        virtual ~object() {}
+        vector3 v3[3];
     };
 }
 
-#endif // __RENDERER_OBJECT_H
+#endif // __RENDERER_TRIANGLE_H

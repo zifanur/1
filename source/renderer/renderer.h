@@ -33,6 +33,10 @@ namespace zifanur
     {
     public:
         renderer();
+
+        renderer(const renderer &a) = delete;
+        renderer &operator =(const renderer &a) = delete;
+
         ~renderer();
 
         void set_buf_size(unsigned a_width, unsigned a_height);
@@ -47,7 +51,7 @@ namespace zifanur
         void set_rpp(unsigned a) { m_rpp = a; }
         void set_depth(unsigned a) { m_depth = a; }
 
-        void add(object *a) { m_o.push_back(a); }
+        void add(object *a) { m_objects.push_back(a); }
 
         void doIt();
 
@@ -66,7 +70,7 @@ namespace zifanur
 
         unsigned m_rpp = 1, m_depth = 4;
 
-        std::list<object *> m_o;
+        std::list<object *> m_objects;
     };
 }
 

@@ -27,7 +27,7 @@ namespace zifanur
 
     renderer::~renderer()
     {
-        for (auto q: m_o) delete q;
+        for (auto q: m_objects) delete q;
         delete []m_acc;
     }
 

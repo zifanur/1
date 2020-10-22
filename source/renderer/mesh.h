@@ -19,21 +19,27 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_OBJECT_H
-#define __RENDERER_OBJECT_H
+#ifndef __RENDERER_MESH_H
+#define __RENDERER_MESH_H
+
+#include "object.h"
+#include "triangle.h"
 
 namespace zifanur
 {
-    class object
+    class mesh: public object
     {
     public:
-        object() {}
+        mesh(triangle *a_t = nullptr) :m_t(a_t) {}
 
-        object(const object &a) = delete;
-        object &operator =(const object &a) = delete;
+        mesh(const mesh &a) = delete;
+        mesh &operator =(const mesh &a) = delete;
 
-        virtual ~object() {}
+        ~mesh() override { delete []m_t; }
+
+    private:
+        triangle *m_t = nullptr;
     };
 }
 
-#endif // __RENDERER_OBJECT_H
+#endif // __RENDERER_MESH_H
