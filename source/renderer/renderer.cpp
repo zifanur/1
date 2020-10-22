@@ -25,7 +25,11 @@ namespace zifanur
 {
     renderer::renderer() {}
 
-    renderer::~renderer() { delete []m_acc; }
+    renderer::~renderer()
+    {
+        for (auto q: m_o) delete q;
+        delete []m_acc;
+    }
 
     void renderer::set_buf_size(unsigned a_width, unsigned a_height)
     {

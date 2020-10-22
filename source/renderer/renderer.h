@@ -24,6 +24,8 @@
 
 #include "f_rgb.h"
 #include "matrix4.h"
+#include "object.h"
+#include <list>
 
 namespace zifanur
 {
@@ -45,6 +47,8 @@ namespace zifanur
         void set_rpp(unsigned a) { m_rpp = a; }
         void set_depth(unsigned a) { m_depth = a; }
 
+        void add(object *a) { m_o.push_back(a); }
+
         void doIt();
 
     private:
@@ -61,6 +65,8 @@ namespace zifanur
         matrix4 m_cam;
 
         unsigned m_rpp = 1, m_depth = 4;
+
+        std::list<object *> m_o;
     };
 }
 
