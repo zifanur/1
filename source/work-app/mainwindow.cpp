@@ -38,7 +38,11 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_pushButton_doIt_clicked()
-{}
+{
+    m_r.set_buf_size(10, 10);
+    m_r.set_fov(1, 1);
+    m_r.doIt();
+}
 
 void MainWindow::onResize(QSize a)
 {

@@ -42,8 +42,15 @@ namespace zifanur
         inline static matrix4 look_at(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up);
         void set_cam(const matrix4 &a) { m_cam = a; }
 
+        void set_rpp(unsigned a) { m_rpp = a; }
+        void set_depth(unsigned a) { m_depth = a; }
+
+        void doIt();
+
     private:
         void calc_buf_to_cam();
+
+        f_rgb processPixel(const matrix4 &a_pix_to_cam);
 
         unsigned m_buf_width = 0, m_buf_height = 0;
         f_rgb *m_acc = nullptr;
@@ -52,6 +59,8 @@ namespace zifanur
         matrix4 m_buf_to_cam;
 
         matrix4 m_cam;
+
+        unsigned m_rpp = 1, m_depth = 4;
     };
 }
 
