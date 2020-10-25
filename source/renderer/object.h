@@ -22,6 +22,9 @@
 #ifndef __RENDERER_OBJECT_H
 #define __RENDERER_OBJECT_H
 
+#include "trace_var.h"
+#include "func.h"
+
 namespace zifanur
 {
     class object
@@ -33,6 +36,8 @@ namespace zifanur
         object &operator =(const object &a) = delete;
 
         virtual ~object() {}
+
+        virtual bool hit(trace_var &a) { return false; }
     };
 }
 

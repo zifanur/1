@@ -19,23 +19,24 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_RENDERER_INLINE_H
-#define __RENDERER_RENDERER_INLINE_H
+#ifndef __RENDERER_TRACE_VAR_H
+#define __RENDERER_TRACE_VAR_H
 
-#include "renderer.h"
+#include "f_rgb.h"
+#include "matrix4.h"
 
 namespace zifanur
 {
-    inline matrix4 renderer::look_at(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up)
+    struct trace_var
     {
-        //https://docs.microsoft.com/en-us/windows/win32/direct3d9/d3dxmatrixlookatlh
-        const vector3 l_z(normalized(a_to - a_from));
-        const vector3 l_x(normalized(cross(l_z, a_up)));
-        const vector3 l_y(cross(l_x, l_z));
-        return matrix4(vector4(l_x, -dot(l_x, a_from)),
-                        vector4(l_y, -dot(l_y, a_from)),
-                        vector4(l_z, -dot(l_z, a_from)));
-    }
+        matrix4 m_pix_to_cam;
+        vector3 m_on_cam_plane;
+        matrix4 m_world_to_ray;
+        f_rgb m_spectrum;
+
+        trace_var(const matrix4 &a_pix_to_cam) :m_pix_to_cam(a_pix_to_cam) {}
+        operator f_rgb() const { return m_spectrum; }
+    };
 }
 
-#endif //__RENDERER_RENDERER_INLINE_H
+#endif // __RENDERER_TRACE_VAR_H

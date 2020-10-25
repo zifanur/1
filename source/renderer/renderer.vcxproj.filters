@@ -46,9 +46,6 @@
     <ClInclude Include="f_rgb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="renderer-inline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,6 +56,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trace_var.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

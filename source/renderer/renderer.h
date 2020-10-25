@@ -22,8 +22,6 @@
 #ifndef __RENDERER_RENDERER_H
 #define __RENDERER_RENDERER_H
 
-#include "f_rgb.h"
-#include "matrix4.h"
 #include "object.h"
 #include <list>
 
@@ -45,7 +43,6 @@ namespace zifanur
 
         void set_fov(float a_h_ratio, float a_v_ratio);
 
-        inline static matrix4 look_at(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up);
         void set_cam(const matrix4 &a) { m_cam = a; }
 
         void set_rpp(unsigned a) { m_rpp = a; }
@@ -58,7 +55,8 @@ namespace zifanur
     private:
         void calc_buf_to_cam();
 
-        f_rgb processPixel(const matrix4 &a_pix_to_cam);
+        trace_var &camRay(trace_var &a);
+        trace_var &processPixel(trace_var &a);
 
         unsigned m_buf_width = 0, m_buf_height = 0;
         f_rgb *m_acc = nullptr;
@@ -73,7 +71,5 @@ namespace zifanur
         std::list<object *> m_objects;
     };
 }
-
-#include "renderer-inline.h"
 
 #endif //__RENDERER_RENDERER_H

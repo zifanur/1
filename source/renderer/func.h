@@ -19,29 +19,23 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_MESH_H
-#define __RENDERER_MESH_H
+#ifndef __RENDERER_FUNC_H
+#define __RENDERER_FUNC_H
 
-#include "triangle.h"
-#include "object.h"
+#include "matrix4.h"
 
 namespace zifanur
 {
-    class mesh: public object
+    inline matrix4 transf(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up)
     {
-    public:
-        mesh(triangle *a_t = nullptr) :m_t(a_t) {}
-
-        mesh(const mesh &a) = delete;
-        mesh &operator =(const mesh &a) = delete;
-
-        ~mesh() override { delete []m_t; }
-
-        virtual bool hit(trace_var &a) { return false; }
-
-    private:
-        triangle *m_t = nullptr;
-    };
+        //https://docs.microsoft.com/en-us/windows/win32/direct3d9/d3dxmatrixlookatlh
+        const vector3 l_za(normalized(a_from - a_to)),
+                        l_xa(normalized(cross(a_up, l_za))),
+                        l_ya(cross(l_za, l_xa));
+        return matrix4(vector4(l_xa, -dot(l_xa, a_from)),
+                        vector4(l_ya, -dot(l_ya, a_from)),
+                        vector4(l_za, -dot(l_za, a_from)));
+    }
 }
 
-#endif // __RENDERER_MESH_H
+#endif //__RENDERER_FUNC_H

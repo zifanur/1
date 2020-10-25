@@ -39,8 +39,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_doIt_clicked()
 {
-    m_r.set_buf_size(10, 10);
+    m_r.set_buf_size(9, 9);
     m_r.set_fov(1, 1);
+    m_r.set_cam(transf(zifanur::vector3(-2, -5, 3), zifanur::vector3(3, 4, 7), zifanur::vector3(0, 0, 1)));
     m_r.doIt();
 }
 
