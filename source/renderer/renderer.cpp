@@ -28,14 +28,14 @@ namespace zifanur
     renderer::~renderer()
     {
         for (auto q: m_objects) delete q;
-        delete []m_acc;
+        delete []m_buf;
     }
 
     void renderer::set_buf_size(unsigned a_width, unsigned a_height)
     {
-        delete []m_acc; m_acc = nullptr;
+        delete []m_buf; m_buf = nullptr;
         m_buf_width = m_buf_height = 0;
-        m_acc = new f_rgb[size_t(a_width) * a_height];
+        m_buf = new f_rgb [size_t(a_width) * a_height];
         m_buf_width = a_width;  m_buf_height = a_height;
         calc_buf_to_cam();
     }
@@ -48,11 +48,11 @@ namespace zifanur
 
     void renderer::doIt()
     {
-        for (unsigned i = 0; i < m_buf_width; i++)
-            for (unsigned j = 0; j < m_buf_height; j++)
+        for (unsigned i = 0; i < m_buf_height; i++)
+            for (unsigned j = 0; j < m_buf_width; j++)
             {
                 trace_var l_tv(m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
-                m_acc[j + i * m_buf_width] = processPixel(l_tv);
+                m_buf[j + i * m_buf_width] = processPixel(l_tv);
             }
     }
 
@@ -62,16 +62,22 @@ namespace zifanur
                                 0, -m_v_ratio / m_buf_height, 0, m_v_ratio / 2 * (1 - 1.0f / m_buf_height));
     }
 
+    trace_var &renderer::ray(trace_var &a)
+    {
+        for (auto &o: m_objects) o->hit(a);
+        return a;
+    }
+
     trace_var &renderer::camRay(trace_var &a)
     {
         const matrix4 l_cam_to_ray(zifanur::transf(vector3(), a.m_on_cam_plane, vector3(0, 1)));
         a.m_world_to_ray = l_cam_to_ray * m_cam;
-        return a;
+        return ray(a);
     }
 
     trace_var &renderer::processPixel(trace_var &a)
     {
-        a.m_on_cam_plane = (a.m_pix_to_cam * vector4(0, 0, -1)).v3;
+        a.m_on_cam_plane = a.m_pix_to_cam * vector4(0, 0, -1);
         return camRay(a);
     }
 }

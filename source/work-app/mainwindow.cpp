@@ -22,6 +22,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "framearea.h"
+#include <renderer/renderer.h>
+#include <renderer/mesh.h>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *a):
     QMainWindow(a), m_ui(new Ui::MainWindow), m_fa(new FrameArea(this))
@@ -39,10 +42,34 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_doIt_clicked()
 {
-    m_r.set_buf_size(9, 9);
-    m_r.set_fov(1, 1);
-    m_r.set_cam(transf(zifanur::vector3(-2, -5, 3), zifanur::vector3(3, 4, 7), zifanur::vector3(0, 0, 1)));
-    m_r.doIt();
+    std::unique_ptr<zifanur::triangle []> l_td(new zifanur::triangle [1]);
+    auto l_mesh(std::make_unique<zifanur::mesh>(1, l_td.get()));
+    l_td[0] = zifanur::triangle(zifanur::vector3(-4, 0, 1), zifanur::vector3(2, 0, -4), zifanur::vector3(3, 0, 4));
+    l_td.release();
+    zifanur::renderer l_r;
+    l_r.add(l_mesh.get());
+    l_mesh.release();
+
+    l_r.set_buf_size(m_fa->width(), m_fa->height());
+    l_r.set_fov(1, 1);
+    l_r.set_cam(transf(zifanur::vector3(0, -10, 0), zifanur::vector3(0, 10, 0), zifanur::vector3(0, 0, 1)));
+    l_r.doIt();
+
+    QImage l_img(m_fa->width(), m_fa->height(), QImage::Format_ARGB32);
+    for (int i = 0; i < m_fa->height(); i++)
+        for (int j = 0; j < m_fa->width(); j++)
+        {
+            const auto l_rgb(l_r.buf()[j + i * l_r.buf_width()]);
+            l_img.setPixelColor(j, i, QColor(255 * l_rgb.r, 255 * l_rgb.g, 255 * l_rgb.b));
+        }
+    m_fa->setImage(std::move(l_img));
+}
+
+void MainWindow::on_pushButton_save_clicked()
+{
+    const auto l_fp(QFileDialog::getSaveFileName(this, windowTitle() + " - Save", "image1.png", "Images (*.png)"));
+    if (l_fp.isEmpty()) return;
+    m_fa->image().save(l_fp, "PNG");
 }
 
 void MainWindow::onResize(QSize a)

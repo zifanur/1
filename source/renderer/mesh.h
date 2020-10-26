@@ -30,18 +30,32 @@ namespace zifanur
     class mesh: public object
     {
     public:
-        mesh(triangle *a_t = nullptr) :m_t(a_t) {}
-
-        mesh(const mesh &a) = delete;
-        mesh &operator =(const mesh &a) = delete;
+        mesh(unsigned a_count, triangle *a_t = nullptr) :m_count(a_count), m_t(a_t) {}
 
         ~mesh() override { delete []m_t; }
 
-        virtual bool hit(trace_var &a) { return false; }
+        virtual bool hit(trace_var &a);
 
     private:
+        bool hit(trace_var &a_tv, const triangle &a_t);
+
+        unsigned m_count = 0;
         triangle *m_t = nullptr;
     };
+
+    inline bool mesh::hit(trace_var &a)
+    {
+        for (unsigned q = 0; q < m_count; q++)
+            if (hit(a, m_t[q])) { a.m_spectrum.g = 1; return true; }
+        return false;
+    }
+
+    inline bool mesh::hit(trace_var &a_tv, const triangle &a_t)
+    {
+        triangle l_t;
+        for (int i = 0; i < 3; i++) l_t.v3[i] = a_tv.m_world_to_ray * a_t.v3[i];
+        return inside(vector3(), l_t);
+    }
 }
 
 #endif // __RENDERER_MESH_H

@@ -26,7 +26,9 @@ namespace zifanur
 {
     struct f_rgb
     {
-        float b = 0, g = 0, r = 0;
+        float r, g, b;
+
+        f_rgb(float a_r = 0, float a_g = 0, float a_b = 0): r(a_r), g(a_g), b(a_b) {}
     };
 }
 

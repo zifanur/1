@@ -28,8 +28,29 @@ namespace zifanur
 {
     struct triangle
     {
-        vector3 v3[3];
+        union
+        {
+            struct { vector3 p1, p2, p3; };
+            vector3 v3[3];
+        };
+
+        triangle(const vector3 &a_p1 = vector3(), const vector3 &a_p2 = vector3(), const vector3 &a_p3 = vector3()):
+            v3{a_p1, a_p2, a_p3}
+        {}
     };
+
+    //https://stackoverflow.com/a/2049593/5634114
+    inline float sign(const vector3 &a_p, const vector3 &a_from, const vector3 &a_to)
+    {
+        return (a_p.x - a_to.x) * (a_from.y - a_to.y) - (a_from.x - a_to.x) * (a_p.y - a_to.y);
+    }
+
+    inline bool inside(const vector3 &a_p, const triangle &a_t)
+    {
+        for (int i = 0; i < 3; i++)
+            if (sign(a_p, a_t.v3[i], a_t.v3[(1 + i) % 3]) < 0) return false;
+        return true;
+    }
 }
 
 #endif // __RENDERER_TRIANGLE_H

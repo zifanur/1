@@ -31,6 +31,7 @@ FrameArea::FrameArea(QWidget *a):
 void FrameArea::setImage(QImage &&a)
 {
     m_i = std::move(a);
+    update();
 }
 
 const QImage &FrameArea::image() const

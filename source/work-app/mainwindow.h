@@ -23,7 +23,6 @@
 #define __WORK_APP_MAINWINDOW_H
 
 #include <QMainWindow>
-#include <renderer/renderer.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +40,7 @@ public:
 
 public slots:
     void on_pushButton_doIt_clicked();
+    void on_pushButton_save_clicked();
 
 protected slots:
     void onResize(QSize a);
@@ -48,8 +48,6 @@ protected slots:
 private:
     Ui::MainWindow *m_ui = nullptr;
     FrameArea *m_fa = nullptr;
-
-    zifanur::renderer m_r;
 };
 
 #endif // __WORK_APP_MAINWINDOW_H

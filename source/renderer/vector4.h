@@ -49,6 +49,8 @@ namespace zifanur
         vector4(const vector3 &a_v3, float a_w = 1):
             v3(a_v3), w(a_w)
         {}
+
+        operator vector3() const { return v3; }
     };
 }
 
