@@ -42,7 +42,8 @@ namespace zifanur
             v4{{a_11, a_12, a_13, a_14}, {a_21, a_22, a_23, a_24}, {a_31, a_32, a_33, a_34}, {a_41, a_42, a_43, a_44}}
         {}
 
-        matrix4(const vector4 &a_r1, const vector4 &a_r2, const vector4 &a_r3, const vector4 &a_r4 = vector4()):
+        matrix4(const vector4 &a_r1, const vector4 &a_r2 = vector4(),
+                const vector4 &a_r3 = vector4(), const vector4 &a_r4 = vector4()):
             v4{a_r1, a_r2, a_r3, a_r4}
         {}
     };
@@ -72,6 +73,13 @@ namespace zifanur
         vector4 l;
         multiply<4, 4, 1>(reinterpret_cast<const float *>(a_m.m),
                             reinterpret_cast<const float *>(a_v.m), reinterpret_cast<float *>(l.m));
+        return l;
+    }
+
+    inline matrix4 shifted(const matrix4 &a_m, const vector3 &m_v)
+    {
+        matrix4 l(a_m);
+        for (int i = 0; i < 3; i++) l.m[i][3] += m_v.m[i];
         return l;
     }
 }

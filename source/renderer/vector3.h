@@ -54,6 +54,13 @@ namespace zifanur
         return l_n;
     }
 
+    inline vector3 operator +(const vector3 &a_o, const vector3 &a_a)
+    {
+        vector3 l;
+        for (int i = 0; i < 3; i++) l.m[i] = a_o.m[i] + a_a.m[i];
+        return l;
+    }
+
     inline vector3 operator -(const vector3 &a_o, const vector3 &a_a)
     {
         vector3 l;

@@ -55,9 +55,9 @@ void MainWindow::on_pushButton_doIt_clicked()
     l_r.set_cam(transf(zifanur::vector3(0, -10, 0), zifanur::vector3(0, 10, 0), zifanur::vector3(0, 0, 1)));
     l_r.doIt();
 
-    QImage l_img(m_fa->width(), m_fa->height(), QImage::Format_ARGB32);
-    for (int i = 0; i < m_fa->height(); i++)
-        for (int j = 0; j < m_fa->width(); j++)
+    QImage l_img(l_r.buf_width(), l_r.buf_height(), QImage::Format_ARGB32);
+    for (unsigned i = 0; i < l_r.buf_height(); i++)
+        for (unsigned j = 0; j < l_r.buf_width(); j++)
         {
             const auto l_rgb(l_r.buf()[j + i * l_r.buf_width()]);
             l_img.setPixelColor(j, i, QColor(255 * l_rgb.r, 255 * l_rgb.g, 255 * l_rgb.b));

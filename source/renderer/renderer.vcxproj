@@ -101,8 +101,10 @@
   <ItemGroup>
     <ClInclude Include="func.h" />
     <ClInclude Include="f_rgb.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="matrix4.h" />
     <ClInclude Include="mesh.h" />
+    <ClInclude Include="mesh_trace_var.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="trace_var.h" />

@@ -19,35 +19,18 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_TRACE_VAR_H
-#define __RENDERER_TRACE_VAR_H
+#ifndef __RENDERER_MATERIAL_H
+#define __RENDERER_MATERIAL_H
 
 #include "f_rgb.h"
-#include "mesh_trace_var.h"
 
 namespace zifanur
 {
-    class object;
-
-    struct trace_var
+    struct material
     {
-        matrix4 m_pix_to_cam;
-        vector3 m_on_cam_plane;
-        matrix4 m_world_to_ray;
-
-        object *m_closest = nullptr;
-        union
-        {
-            vector3 m_intersect;
-            mesh_tv m_mtv;
-        };
-
-        matrix4 m_ray_to_prop;
+        bool m_light = false;
         f_rgb m_spectrum;
-
-        trace_var(const matrix4 &a_pix_to_cam) :m_pix_to_cam(a_pix_to_cam), m_mtv() {}
-        operator f_rgb() const { return m_spectrum; }
     };
 }
 
-#endif // __RENDERER_TRACE_VAR_H
+#endif // __RENDERER_MATERIAL_H

@@ -37,7 +37,8 @@ namespace zifanur
 
         virtual ~object() {}
 
-        virtual bool hit(trace_var &a) { return false; }
+        virtual trace_var &hit(trace_var &a) { return a; }
+        virtual trace_var &refl(trace_var &a) { return a; }
     };
 }
 

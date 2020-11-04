@@ -19,35 +19,25 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_TRACE_VAR_H
-#define __RENDERER_TRACE_VAR_H
+#ifndef __RENDERER_MESH_TRACE_VAR_H
+#define __RENDERER_MESH_TRACE_VAR_H
 
-#include "f_rgb.h"
-#include "mesh_trace_var.h"
+#include "triangle.h"
 
 namespace zifanur
 {
-    class object;
-
-    struct trace_var
+    struct mesh_tv
     {
-        matrix4 m_pix_to_cam;
-        vector3 m_on_cam_plane;
-        matrix4 m_world_to_ray;
+        vector3 m_i_in_r;
 
-        object *m_closest = nullptr;
-        union
-        {
-            vector3 m_intersect;
-            mesh_tv m_mtv;
-        };
-
-        matrix4 m_ray_to_prop;
-        f_rgb m_spectrum;
-
-        trace_var(const matrix4 &a_pix_to_cam) :m_pix_to_cam(a_pix_to_cam), m_mtv() {}
-        operator f_rgb() const { return m_spectrum; }
+        unsigned m_index = 0;
+        triangle m_in_ray;
+        vector3 m_sides[2];
+        vector3 m_normal;
+        vector3 m_i_in_t;
+        vector3 m_incident;
+        vector3 m_refl;
     };
 }
 
-#endif // __RENDERER_TRACE_VAR_H
+#endif // __RENDERER_MESH_TRACE_VAR_H

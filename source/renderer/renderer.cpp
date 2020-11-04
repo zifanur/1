@@ -64,7 +64,14 @@ namespace zifanur
 
     trace_var &renderer::ray(trace_var &a)
     {
-        for (auto &o: m_objects) o->hit(a);
+        for (auto &o : m_objects)
+        {
+            o->hit(a);
+        }
+        if (a.m_closest != nullptr)
+        {
+            a.m_closest->refl(a);
+        }
         return a;
     }
 

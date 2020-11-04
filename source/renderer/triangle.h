@@ -22,7 +22,7 @@
 #ifndef __RENDERER_TRIANGLE_H
 #define __RENDERER_TRIANGLE_H
 
-#include "vector3.h"
+#include "matrix4.h"
 
 namespace zifanur
 {
@@ -34,10 +34,18 @@ namespace zifanur
             vector3 v3[3];
         };
 
-        triangle(const vector3 &a_p1 = vector3(), const vector3 &a_p2 = vector3(), const vector3 &a_p3 = vector3()):
+        explicit triangle(const vector3 &a_p1 = vector3(),
+                            const vector3 &a_p2 = vector3(), const vector3 &a_p3 = vector3()):
             v3{a_p1, a_p2, a_p3}
         {}
     };
+
+    inline triangle operator *(const matrix4 &a_m, const triangle &a_t)
+    {
+        triangle l_t;
+        for (int i = 0; i < 3; i++) l_t.v3[i] = a_m * a_t.v3[i];
+        return l_t;
+    }
 
     //https://stackoverflow.com/a/2049593/5634114
     inline float sign(const vector3 &a_p, const vector3 &a_from, const vector3 &a_to)
