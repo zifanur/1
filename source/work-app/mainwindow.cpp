@@ -24,6 +24,8 @@
 #include "framearea.h"
 #include <renderer/renderer.h>
 #include <renderer/mesh.h>
+#include <renderer/solid_color.h>
+#include <renderer/solid_color_light.h>
 #include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *a):
@@ -42,13 +44,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_doIt_clicked()
 {
-    std::unique_ptr<zifanur::triangle []> l_td(new zifanur::triangle [1]);
-    auto l_mesh(std::make_unique<zifanur::mesh>(1, l_td.get()));
-    l_td[0] = zifanur::triangle(zifanur::vector3(-4, 0, 1), zifanur::vector3(2, 0, -4), zifanur::vector3(3, 0, 4));
-    l_td.release();
     zifanur::renderer l_r;
-    l_r.add(l_mesh.get());
-    l_mesh.release();
+
+    std::unique_ptr<zifanur::triangle []> l_td1(new zifanur::triangle [2]);
+    l_td1[0] = zifanur::triangle(zifanur::vector3(5, -5, 5), zifanur::vector3(5, 5, 5), zifanur::vector3(5, -5, -5));
+    l_td1[1] = zifanur::triangle(zifanur::vector3(5, -5, -5), zifanur::vector3(5, 5, 5), zifanur::vector3(5, 5, -5));
+    auto l_material1(std::make_unique<zifanur::solid_color>(zifanur::f_rgb(0.4f, 0.4f, 0.6f)));
+    auto l_mesh1(std::make_unique<zifanur::mesh>(2, l_td1.get(), l_material1.get()));
+    l_td1.release();
+    l_r.add(l_material1.get());
+    l_material1.release();
+    l_r.add(l_mesh1.get());
+    l_mesh1.release();
+
+    std::unique_ptr<zifanur::triangle[]> l_td2(new zifanur::triangle[2]);
+    l_td2[0] = zifanur::triangle(zifanur::vector3(5, -5, 5), zifanur::vector3(-5, -5, 5), zifanur::vector3(-5, 5, 5));
+    l_td2[1] = zifanur::triangle(zifanur::vector3(5, -5, 5), zifanur::vector3(-5, 5, 5), zifanur::vector3(5, 5, 5));
+    auto l_material2(std::make_unique<zifanur::solid_color_light>(zifanur::f_rgb(0.5f, 0.5f, 0.5f), zifanur::f_rgb(0.7f, 0.3f, 0.3f)));
+    auto l_mesh2(std::make_unique<zifanur::mesh>(2, l_td2.get(), l_material2.get()));
+    l_td2.release();
+    l_r.add(l_material2.get());
+    l_material2.release();
+    l_r.add(l_mesh2.get());
+    l_mesh2.release();
 
     l_r.set_buf_size(m_fa->width(), m_fa->height());
     l_r.set_fov(1, 1);
@@ -60,7 +78,7 @@ void MainWindow::on_pushButton_doIt_clicked()
         for (unsigned j = 0; j < l_r.buf_width(); j++)
         {
             const auto l_rgb(l_r.buf()[j + i * l_r.buf_width()]);
-            l_img.setPixelColor(j, i, QColor(255 * l_rgb.r, 255 * l_rgb.g, 255 * l_rgb.b));
+            l_img.setPixelColor(j, i, QColor(255 * (l_rgb.r > 1? 1: l_rgb.r), 255 * (l_rgb.g > 1? 1: l_rgb.g), 255 * (l_rgb.b > 1? 1: l_rgb.b)));
         }
     m_fa->setImage(std::move(l_img));
 }

@@ -29,7 +29,7 @@ namespace zifanur
     inline vector3 perp(const vector3 &a)
     {
         //https://stackoverflow.com/a/38407105
-        return std::abs(a.z) < std::abs(a.x) ? vector3(a.y, -a.x) : vector3(0, -a.z, a.y);
+        return std::abs(a.z) < std::abs(a.x)? vector3(a.y, -a.x): vector3(0, -a.z, a.y);
     }
 
     inline matrix4 transf(const vector3 &a_from, const vector3 &a_to, const vector3 &a_up)

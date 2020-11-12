@@ -36,7 +36,7 @@ namespace zifanur
         vector3 m_normal;
         vector3 m_i_in_t;
         vector3 m_incident;
-        vector3 m_refl;
+        vector3 m_prop;
     };
 }
 

@@ -70,7 +70,7 @@ namespace zifanur
         }
         if (a.m_closest != nullptr)
         {
-            a.m_closest->refl(a);
+            a.m_closest->prop(a);
         }
         return a;
     }

@@ -24,25 +24,28 @@
 
 #include "triangle.h"
 #include "object.h"
+#include "material.h"
 
 namespace zifanur
 {
     class mesh: public object
     {
     public:
-        mesh(unsigned a_count, triangle *a_t) :m_count(a_count), m_t(a_t) {}
+        mesh(unsigned a_count, triangle *a_t, material *a_material):
+            m_count(a_count), m_t(a_t), m_material(a_material)
+        {}
 
         ~mesh() override { delete []m_t; }
 
         trace_var &hit(trace_var &a) override;
-        trace_var &refl(trace_var &a) override;
+        trace_var &prop(trace_var &a) override;
 
     private:
         trace_var &hit(trace_var &a_tv, unsigned a_ti);
-        trace_var &gen(trace_var &a);
 
         unsigned m_count = 0;
         triangle *m_t = nullptr;
+        material *m_material = nullptr;
     };
 
     inline trace_var &mesh::hit(trace_var &a)
@@ -51,7 +54,7 @@ namespace zifanur
         return a;
     }
 
-    inline trace_var &mesh::refl(trace_var &a)
+    inline trace_var &mesh::prop(trace_var &a)
     {
         const vector3 l_xa(normalized(a.m_mtv.m_sides[0])),
                         l_za(normalized(a.m_mtv.m_normal)),
@@ -63,11 +66,10 @@ namespace zifanur
                                 -dot(l_za, a.m_mtv.m_in_ray.p1));
         const matrix4 l_ray_to_triangle(shifted(l_ray_to_triangle_rot, l_origin));
         a.m_mtv.m_i_in_t = l_ray_to_triangle * a.m_mtv.m_i_in_r;
-        gen(a);
-        const vector3 l_to(a.m_mtv.m_i_in_t + a.m_mtv.m_refl);
-        const matrix4 l_triangle_to_prop(transf(a.m_mtv.m_i_in_t, l_to, perp(a.m_mtv.m_refl)));
+        m_material->prop(a);
+        const vector3 l_to(a.m_mtv.m_i_in_t + a.m_mtv.m_prop);
+        const matrix4 l_triangle_to_prop(transf(a.m_mtv.m_i_in_t, l_to, perp(a.m_mtv.m_prop)));
         a.m_ray_to_prop = l_triangle_to_prop * l_ray_to_triangle;
-        a.m_spectrum.g = -dot(normalized(a.m_mtv.m_incident), normalized(a.m_mtv.m_normal));
         return a;
     }
 
@@ -85,12 +87,6 @@ namespace zifanur
         a_tv.m_closest = this;
         a_tv.m_mtv = l_mtv;
         return a_tv;
-    }
-
-    inline trace_var &mesh::gen(trace_var &a)
-    {
-        a.m_mtv.m_refl = vector3(0, 0, 1);
-        return a;
     }
 }
 

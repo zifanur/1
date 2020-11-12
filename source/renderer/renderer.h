@@ -23,6 +23,7 @@
 #define __RENDERER_RENDERER_H
 
 #include "object.h"
+#include "material.h"
 #include <list>
 
 namespace zifanur
@@ -51,6 +52,7 @@ namespace zifanur
         void set_depth(unsigned a) { m_depth = a; }
 
         void add(object *a) { m_objects.push_back(a); }
+        void add(material *a) { m_materials.push_back(a); }
 
         void doIt();
 
@@ -72,6 +74,7 @@ namespace zifanur
         unsigned m_rpp = 1, m_depth = 4;
 
         std::list<object *> m_objects;
+        std::list<material *> m_materials;
     };
 }
 

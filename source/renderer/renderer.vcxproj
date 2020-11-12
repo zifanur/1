@@ -107,6 +107,8 @@
     <ClInclude Include="mesh_trace_var.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="renderer.h" />
+    <ClInclude Include="solid_color.h" />
+    <ClInclude Include="solid_color_light.h" />
     <ClInclude Include="trace_var.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="vector3.h" />
