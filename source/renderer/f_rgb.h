@@ -34,6 +34,22 @@ namespace zifanur
 
         f_rgb(float a_r = 0, float a_g = 0, float a_b = 0): r(a_r), g(a_g), b(a_b) {}
     };
+
+    inline f_rgb &operator +=(f_rgb &a_o, const f_rgb &a_a)
+    {
+        for (int i = 0; i < 3; i++) a_o.f[i] += a_a.f[i];
+        return a_o;
+    }
+
+    inline f_rgb operator +(f_rgb a_o, const f_rgb &a_a) { return a_o += a_a; }
+
+    inline f_rgb &operator *=(f_rgb &a_o, const f_rgb &a_a)
+    {
+        for (int i = 0; i < 3; i++) a_o.f[i] *= a_a.f[i];
+        return a_o;
+    }
+
+    inline f_rgb operator *(f_rgb a_o, const f_rgb &a_a) { return a_o *= a_a; }
 }
 
 #endif // __RENDERER_F_RGB_H

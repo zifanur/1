@@ -22,14 +22,22 @@
 #ifndef __RENDERER_MATERIAL_H
 #define __RENDERER_MATERIAL_H
 
-#include "f_rgb.h"
+#include "trace_var.h"
 
 namespace zifanur
 {
-    struct material
+    class material
     {
-        bool m_light = false;
-        f_rgb m_spectrum;
+    public:
+        material() {}
+
+        material(const material &a) = delete;
+        material &operator =(const material &a) = delete;
+
+        virtual ~material() {}
+
+        virtual trace_var &hit(trace_var &a) { return a; }
+        virtual trace_var &prop(trace_var &a) { return a; }
     };
 }
 

@@ -43,10 +43,12 @@ namespace zifanur
         };
 
         matrix4 m_ray_to_prop;
-        f_rgb m_spectrum;
+        bool m_light_encounter = false;
+        f_rgb m_absorb = f_rgb(1, 1, 1);
+        f_rgb m_accum;
 
         trace_var(const matrix4 &a_pix_to_cam) :m_pix_to_cam(a_pix_to_cam), m_mtv() {}
-        operator f_rgb() const { return m_spectrum; }
+        operator f_rgb() const { return m_accum; }
     };
 }
 

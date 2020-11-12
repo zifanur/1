@@ -70,6 +70,12 @@
     <ClInclude Include="mesh_trace_var.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="solid_color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="solid_color_light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="renderer.cpp">
