@@ -19,38 +19,13 @@
 
 // zifanur@hotmail.com
 
-#ifndef __RENDERER_SOLID_COLOR_H
-#define __RENDERER_SOLID_COLOR_H
-
-#include "material.h"
+#ifndef __RENDERER_DEF_H
+#define __RENDERER_DEF_H
 
 namespace zifanur
 {
-    class solid_color: public material
-    {
-    public:
-        solid_color(const f_rgb &a_fraction):
-            m_fraction(a_fraction)
-        {}
-
-        solid_color(const solid_color &a) = delete;
-        solid_color &operator =(const solid_color &a) = delete;
-
-        virtual ~solid_color() {}
-
-        virtual trace_var &hit(trace_var &a) override { return a; }
-        virtual trace_var &prop(trace_var &a) override;
-
-    private:
-        f_rgb m_fraction;
-    };
-
-    trace_var &solid_color::prop(trace_var &a)
-    {
-        material::prop(a);
-        a.m_absorb *= m_fraction;
-        return a;
-    }
+    const float s_pi_f = 3.1415926535897932384626433832795f;
+    const double s_pi = 3.1415926535897932384626433832795;
 }
 
-#endif // __RENDERER_SOLID_COLOR_H
+#endif // __RENDERER_DEF_H

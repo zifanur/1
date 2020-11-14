@@ -60,15 +60,15 @@ namespace zifanur
                         l_za(normalized(a.m_mtv.m_normal)),
                         l_ya(cross(l_za, l_xa));
         const matrix4 l_ray_to_triangle_rot(vector4(l_xa, 0), vector4(l_ya, 0), vector4(l_za, 0));
-        a.m_mtv.m_incident = l_ray_to_triangle_rot * a.m_mtv.m_i_in_r;
+        a.m_inc_in_mat = l_ray_to_triangle_rot * a.m_mtv.m_i_in_r;
         const vector3 l_origin(-dot(l_xa, a.m_mtv.m_in_ray.p1),
                                 -dot(l_ya, a.m_mtv.m_in_ray.p1),
                                 -dot(l_za, a.m_mtv.m_in_ray.p1));
         const matrix4 l_ray_to_triangle(shifted(l_ray_to_triangle_rot, l_origin));
         a.m_mtv.m_i_in_t = l_ray_to_triangle * a.m_mtv.m_i_in_r;
         m_material->prop(a);
-        const vector3 l_to(a.m_mtv.m_i_in_t + a.m_mtv.m_prop);
-        const matrix4 l_triangle_to_prop(transf(a.m_mtv.m_i_in_t, l_to, perp(a.m_mtv.m_prop)));
+        const vector3 l_to(a.m_mtv.m_i_in_t + a.m_prop_in_mat);
+        const matrix4 l_triangle_to_prop(transf(a.m_mtv.m_i_in_t, l_to, perp(a.m_prop_in_mat)));
         a.m_ray_to_prop = l_triangle_to_prop * l_ray_to_triangle;
         return a;
     }

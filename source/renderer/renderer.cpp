@@ -28,6 +28,7 @@ namespace zifanur
     renderer::~renderer()
     {
         for (auto q: m_objects) delete q;
+        for (auto q: m_materials) delete q;
         delete []m_buf;
     }
 
@@ -36,7 +37,7 @@ namespace zifanur
         delete []m_buf; m_buf = nullptr;
         m_buf_width = m_buf_height = 0;
         m_buf = new f_rgb [size_t(a_width) * a_height];
-        m_buf_width = a_width;  m_buf_height = a_height;
+        m_buf_width = a_width; m_buf_height = a_height;
         calc_buf_to_cam();
     }
 
@@ -51,7 +52,7 @@ namespace zifanur
         for (unsigned i = 0; i < m_buf_height; i++)
             for (unsigned j = 0; j < m_buf_width; j++)
             {
-                trace_var l_tv(m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
+                trace_var l_tv(std::random_device()(), m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
                 m_buf[j + i * m_buf_width] = processPixel(l_tv);
             }
     }
@@ -75,11 +76,22 @@ namespace zifanur
         return a;
     }
 
+    trace_var &renderer::trace(trace_var &a)
+    {
+        for (; a.m_depth < m_depth; a.m_depth++)
+        {
+            ray(a);
+            a.m_world_to_ray = a.m_ray_to_prop * a.m_world_to_ray;
+            a.m_closest = nullptr;
+        }
+        return a;
+    }
+
     trace_var &renderer::camRay(trace_var &a)
     {
         const matrix4 l_cam_to_ray(zifanur::transf(vector3(), a.m_on_cam_plane, vector3(0, 1)));
         a.m_world_to_ray = l_cam_to_ray * m_cam;
-        return ray(a);
+        return trace(a);
     }
 
     trace_var &renderer::processPixel(trace_var &a)

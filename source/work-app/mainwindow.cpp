@@ -49,7 +49,7 @@ void MainWindow::on_pushButton_doIt_clicked()
     std::unique_ptr<zifanur::triangle []> l_td1(new zifanur::triangle [2]);
     l_td1[0] = zifanur::triangle(zifanur::vector3(5, -5, 5), zifanur::vector3(5, 5, 5), zifanur::vector3(5, -5, -5));
     l_td1[1] = zifanur::triangle(zifanur::vector3(5, -5, -5), zifanur::vector3(5, 5, 5), zifanur::vector3(5, 5, -5));
-    auto l_material1(std::make_unique<zifanur::solid_color>(zifanur::f_rgb(0.4f, 0.4f, 0.6f)));
+    auto l_material1(std::make_unique<zifanur::solid_color>(zifanur::f_rgb(0.4f, 0.6f, 0.4f)));
     auto l_mesh1(std::make_unique<zifanur::mesh>(2, l_td1.get(), l_material1.get()));
     l_td1.release();
     l_r.add(l_material1.get());
@@ -60,7 +60,7 @@ void MainWindow::on_pushButton_doIt_clicked()
     std::unique_ptr<zifanur::triangle[]> l_td2(new zifanur::triangle[2]);
     l_td2[0] = zifanur::triangle(zifanur::vector3(5, -5, 5), zifanur::vector3(-5, -5, 5), zifanur::vector3(-5, 5, 5));
     l_td2[1] = zifanur::triangle(zifanur::vector3(5, -5, 5), zifanur::vector3(-5, 5, 5), zifanur::vector3(5, 5, 5));
-    auto l_material2(std::make_unique<zifanur::solid_color_light>(zifanur::f_rgb(0.5f, 0.5f, 0.5f), zifanur::f_rgb(0.7f, 0.3f, 0.3f)));
+    auto l_material2(std::make_unique<zifanur::solid_color_light>(zifanur::f_rgb(0.5f, 0.5f, 0.5f), zifanur::f_rgb(1.05f, 1.05f, 0.9f)));
     auto l_mesh2(std::make_unique<zifanur::mesh>(2, l_td2.get(), l_material2.get()));
     l_td2.release();
     l_r.add(l_material2.get());
@@ -68,9 +68,31 @@ void MainWindow::on_pushButton_doIt_clicked()
     l_r.add(l_mesh2.get());
     l_mesh2.release();
 
+    std::unique_ptr<zifanur::triangle[]> l_td3(new zifanur::triangle[2]);
+    l_td3[0] = zifanur::triangle(zifanur::vector3(-5, -5, 5), zifanur::vector3(-5, -5, -5), zifanur::vector3(-5, 5, -5));
+    l_td3[1] = zifanur::triangle(zifanur::vector3(-5, -5, 5), zifanur::vector3(-5, 5, -5), zifanur::vector3(-5, 5, 5));
+    auto l_material3(std::make_unique<zifanur::solid_color>(zifanur::f_rgb(0.4f, 0.6f, 0.4f)));
+    auto l_mesh3(std::make_unique<zifanur::mesh>(2, l_td3.get(), l_material3.get()));
+    l_td3.release();
+    l_r.add(l_material3.get());
+    l_material3.release();
+    l_r.add(l_mesh3.get());
+    l_mesh3.release();
+
+    std::unique_ptr<zifanur::triangle[]> l_td4(new zifanur::triangle[2]);
+    l_td4[0] = zifanur::triangle(zifanur::vector3(5, -5, -5), zifanur::vector3(5, 5, -5), zifanur::vector3(-5, -5, -5));
+    l_td4[1] = zifanur::triangle(zifanur::vector3(-5, -5, -5), zifanur::vector3(5, 5, -5), zifanur::vector3(-5, 5, -5));
+    auto l_material4(std::make_unique<zifanur::solid_color>(zifanur::f_rgb(0.6f, 0.4f, 0.4f)));
+    auto l_mesh4(std::make_unique<zifanur::mesh>(2, l_td4.get(), l_material4.get()));
+    l_td4.release();
+    l_r.add(l_material4.get());
+    l_material4.release();
+    l_r.add(l_mesh4.get());
+    l_mesh4.release();
+
     l_r.set_buf_size(m_fa->width(), m_fa->height());
     l_r.set_fov(1, 1);
-    l_r.set_cam(transf(zifanur::vector3(0, -10, 0), zifanur::vector3(0, 10, 0), zifanur::vector3(0, 0, 1)));
+    l_r.set_cam(transf(zifanur::vector3(0, -15.5, 0), zifanur::vector3(0, 0, 0), zifanur::vector3(0, 0, 1)));
     l_r.doIt();
 
     QImage l_img(l_r.buf_width(), l_r.buf_height(), QImage::Format_ARGB32);

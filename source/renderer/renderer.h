@@ -60,6 +60,7 @@ namespace zifanur
         void calc_buf_to_cam();
 
         trace_var &ray(trace_var &a);
+        trace_var &trace(trace_var &a);
         trace_var &camRay(trace_var &a);
         trace_var &processPixel(trace_var &a);
 
@@ -71,7 +72,7 @@ namespace zifanur
 
         matrix4 m_cam;
 
-        unsigned m_rpp = 1, m_depth = 4;
+        unsigned m_rpp = 1, m_depth = 10;
 
         std::list<object *> m_objects;
         std::list<material *> m_materials;

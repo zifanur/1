@@ -23,6 +23,7 @@
 #define __RENDERER_MATERIAL_H
 
 #include "trace_var.h"
+#include "def.h"
 
 namespace zifanur
 {
@@ -37,8 +38,17 @@ namespace zifanur
         virtual ~material() {}
 
         virtual trace_var &hit(trace_var &a) { return a; }
-        virtual trace_var &prop(trace_var &a) { return a; }
+        virtual trace_var &prop(trace_var &a);
     };
+
+    inline trace_var &material::prop(trace_var &a)
+    {
+        const float l_alpha = std::uniform_real_distribution<float>(0, 2 * s_pi_f)(a.m_random),
+                    l_beta = std::uniform_real_distribution<float>(0, s_pi_f / 2)(a.m_random);
+        const float l_cos_beta = std::cos(l_beta);
+        a.m_prop_in_mat = vector3(l_cos_beta * std::cos(l_alpha), l_cos_beta * std::sin(l_alpha), std::sin(l_beta));
+        return a;
+    }
 }
 
 #endif // __RENDERER_MATERIAL_H

@@ -22,6 +22,7 @@
 #ifndef __RENDERER_TRACE_VAR_H
 #define __RENDERER_TRACE_VAR_H
 
+#include <random>
 #include "f_rgb.h"
 #include "mesh_trace_var.h"
 
@@ -29,10 +30,16 @@ namespace zifanur
 {
     class object;
 
+    using random_seed = std::mt19937::result_type;
+
     struct trace_var
     {
+        std::mt19937 m_random;
+
         matrix4 m_pix_to_cam;
         vector3 m_on_cam_plane;
+
+        unsigned m_depth = 0;
         matrix4 m_world_to_ray;
 
         object *m_closest = nullptr;
@@ -42,12 +49,17 @@ namespace zifanur
             mesh_tv m_mtv;
         };
 
+        vector3 m_inc_in_mat;
+        vector3 m_prop_in_mat;
+
         matrix4 m_ray_to_prop;
         bool m_light_encounter = false;
         f_rgb m_absorb = f_rgb(1, 1, 1);
         f_rgb m_accum;
 
-        trace_var(const matrix4 &a_pix_to_cam) :m_pix_to_cam(a_pix_to_cam), m_mtv() {}
+        trace_var(random_seed a_seed, const matrix4 &a_pix_to_cam):
+            m_random(a_seed), m_pix_to_cam(a_pix_to_cam), m_mtv() {}
+
         operator f_rgb() const { return m_accum; }
     };
 }
