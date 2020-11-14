@@ -48,7 +48,7 @@ namespace zifanur
     trace_var &solid_color_light::prop(trace_var &a)
     {
         material::prop(a);
-        a.m_light_encounter = true;
+        a.m_light_hit = true;
         a.m_accum += a.m_absorb * m_emission;
         a.m_absorb *= m_fraction;
         return a;

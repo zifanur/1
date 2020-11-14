@@ -72,7 +72,7 @@ namespace zifanur
 
         matrix4 m_cam;
 
-        unsigned m_rpp = 1, m_depth = 10;
+        unsigned m_rpp = 1000, m_depth = 10;
 
         std::list<object *> m_objects;
         std::list<material *> m_materials;

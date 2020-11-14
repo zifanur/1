@@ -65,24 +65,19 @@ namespace zifanur
 
     trace_var &renderer::ray(trace_var &a)
     {
-        for (auto &o: m_objects)
-        {
-            o->hit(a);
-        }
-        if (a.m_closest != nullptr)
-        {
-            a.m_closest->prop(a);
-        }
+        a.m_closest = nullptr;
+        for (auto &o: m_objects) o->hit(a);
+        if (a.m_closest != nullptr) a.m_closest->prop(a);
         return a;
     }
 
     trace_var &renderer::trace(trace_var &a)
     {
-        for (; a.m_depth < m_depth; a.m_depth++)
+        for (a.m_depth = 0; a.m_depth < m_depth; a.m_depth++)
         {
             ray(a);
+            if (a.m_closest == nullptr) break;
             a.m_world_to_ray = a.m_ray_to_prop * a.m_world_to_ray;
-            a.m_closest = nullptr;
         }
         return a;
     }
@@ -91,12 +86,19 @@ namespace zifanur
     {
         const matrix4 l_cam_to_ray(zifanur::transf(vector3(), a.m_on_cam_plane, vector3(0, 1)));
         a.m_world_to_ray = l_cam_to_ray * m_cam;
+        a.m_light_hit = false; a.m_absorb = f_rgb(1, 1, 1); a.m_accum = f_rgb();
         return trace(a);
     }
 
     trace_var &renderer::processPixel(trace_var &a)
     {
-        a.m_on_cam_plane = a.m_pix_to_cam * vector4(0, 0, -1);
-        return camRay(a);
+        for (unsigned q = 0; q < m_rpp; q++)
+        {
+            std::uniform_real<float> l_in_pix(-0.5f, 0.5f);
+            a.m_on_cam_plane = a.m_pix_to_cam * vector4(l_in_pix(a.m_random), l_in_pix(a.m_random), -1);
+            camRay(a);
+            if (a.m_light_hit) { a.m_light_hit_count++; a.m_total += a.m_accum; }
+        }
+        return a;
     }
 }

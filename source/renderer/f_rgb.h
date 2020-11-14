@@ -50,6 +50,14 @@ namespace zifanur
     }
 
     inline f_rgb operator *(f_rgb a_o, const f_rgb &a_a) { return a_o *= a_a; }
+
+    inline f_rgb &operator /=(f_rgb &a_rgb, float a_div)
+    {
+        for (int i = 0; i < 3; i++) a_rgb.f[i] /= a_div;
+        return a_rgb;
+    }
+
+    inline f_rgb operator /(f_rgb a_rgb, float a_div) { return a_rgb /= a_div; }
 }
 
 #endif // __RENDERER_F_RGB_H

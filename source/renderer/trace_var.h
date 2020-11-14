@@ -53,14 +53,18 @@ namespace zifanur
         vector3 m_prop_in_mat;
 
         matrix4 m_ray_to_prop;
-        bool m_light_encounter = false;
-        f_rgb m_absorb = f_rgb(1, 1, 1);
+
+        bool m_light_hit = false;
+        f_rgb m_absorb;
         f_rgb m_accum;
+
+        unsigned m_light_hit_count = 0;
+        f_rgb m_total;
 
         trace_var(random_seed a_seed, const matrix4 &a_pix_to_cam):
             m_random(a_seed), m_pix_to_cam(a_pix_to_cam), m_mtv() {}
 
-        operator f_rgb() const { return m_accum; }
+        operator f_rgb() const { return m_light_hit_count > 0? m_total / float(m_light_hit_count): f_rgb(); }
     };
 }
 
