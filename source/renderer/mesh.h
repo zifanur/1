@@ -40,6 +40,8 @@ namespace zifanur
         trace_var &hit(trace_var &a) override;
         trace_var &prop(trace_var &a) override;
 
+        mesh &transform(const matrix4 &a);
+
     private:
         trace_var &hit(trace_var &a_tv, unsigned a_ti);
 
@@ -71,6 +73,12 @@ namespace zifanur
         const matrix4 l_triangle_to_prop(transf(a.m_mtv.m_i_in_t, l_to, perp(a.m_prop_in_mat)));
         a.m_ray_to_prop = l_triangle_to_prop * l_ray_to_triangle;
         return a;
+    }
+
+    inline mesh &mesh::transform(const matrix4 &a)
+    {
+        for (unsigned i = 0; i < m_count; i++) m_t[i] = a * m_t[i];
+        return *this;
     }
 
     inline trace_var &mesh::hit(trace_var &a_tv, unsigned a_ti)

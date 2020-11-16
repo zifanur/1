@@ -58,13 +58,13 @@ namespace zifanur
         f_rgb m_absorb;
         f_rgb m_accum;
 
-        unsigned m_light_hit_count = 0;
+        unsigned m_count = 0;
         f_rgb m_total;
 
         trace_var(random_seed a_seed, const matrix4 &a_pix_to_cam):
             m_random(a_seed), m_pix_to_cam(a_pix_to_cam), m_mtv() {}
 
-        operator f_rgb() const { return m_light_hit_count > 0? m_total / float(m_light_hit_count): f_rgb(); }
+        operator f_rgb() const { return m_count > 0? m_total / float(m_count): f_rgb(); }
     };
 }
 

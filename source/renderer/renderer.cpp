@@ -47,13 +47,14 @@ namespace zifanur
         calc_buf_to_cam();
     }
 
-    void renderer::doIt()
+    void renderer::do_it()
     {
         for (unsigned i = 0; i < m_buf_height; i++)
             for (unsigned j = 0; j < m_buf_width; j++)
             {
-                trace_var l_tv(std::random_device()(), m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
-                m_buf[j + i * m_buf_width] = processPixel(l_tv);
+                trace_var l_tv(std::random_device()(),
+                                m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
+                m_buf[j + i * m_buf_width] = process_pixel(l_tv);
             }
     }
 
@@ -82,7 +83,7 @@ namespace zifanur
         return a;
     }
 
-    trace_var &renderer::camRay(trace_var &a)
+    trace_var &renderer::cam_ray(trace_var &a)
     {
         const matrix4 l_cam_to_ray(zifanur::transf(vector3(), a.m_on_cam_plane, vector3(0, 1)));
         a.m_world_to_ray = l_cam_to_ray * m_cam;
@@ -90,14 +91,14 @@ namespace zifanur
         return trace(a);
     }
 
-    trace_var &renderer::processPixel(trace_var &a)
+    trace_var &renderer::process_pixel(trace_var &a)
     {
         for (unsigned q = 0; q < m_rpp; q++)
         {
             std::uniform_real<float> l_in_pix(-0.5f, 0.5f);
             a.m_on_cam_plane = a.m_pix_to_cam * vector4(l_in_pix(a.m_random), l_in_pix(a.m_random), -1);
-            camRay(a);
-            if (a.m_light_hit) { a.m_light_hit_count++; a.m_total += a.m_accum; }
+            cam_ray(a);
+            if (a.m_light_hit || a.m_closest == nullptr) { a.m_count++; a.m_total += a.m_accum; }
         }
         return a;
     }

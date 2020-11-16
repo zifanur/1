@@ -75,13 +75,6 @@ namespace zifanur
                             reinterpret_cast<const float *>(a_v.m), reinterpret_cast<float *>(l.m));
         return l;
     }
-
-    inline matrix4 shifted(const matrix4 &a_m, const vector3 &m_v)
-    {
-        matrix4 l(a_m);
-        for (int i = 0; i < 3; i++) l.m[i][3] += m_v.m[i];
-        return l;
-    }
 }
 
 #endif // __RENDERER_MATRIX4_H

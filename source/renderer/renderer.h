@@ -54,15 +54,15 @@ namespace zifanur
         void add(object *a) { m_objects.push_back(a); }
         void add(material *a) { m_materials.push_back(a); }
 
-        void doIt();
+        void do_it();
 
     private:
         void calc_buf_to_cam();
 
         trace_var &ray(trace_var &a);
         trace_var &trace(trace_var &a);
-        trace_var &camRay(trace_var &a);
-        trace_var &processPixel(trace_var &a);
+        trace_var &cam_ray(trace_var &a);
+        trace_var &process_pixel(trace_var &a);
 
         unsigned m_buf_width = 0, m_buf_height = 0;
         f_rgb *m_buf = nullptr;

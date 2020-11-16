@@ -42,6 +42,20 @@ namespace zifanur
                         vector4(l_ya, -dot(l_ya, a_from)),
                         vector4(l_za, -dot(l_za, a_from)));
     }
+
+    inline matrix4 shifted(const matrix4 &a_m, const vector3 &m_v)
+    {
+        matrix4 l(a_m);
+        for (int i = 0; i < 3; i++) l.m[i][3] += m_v.m[i];
+        return l;
+    }
+
+    inline matrix4 scale_and_move(const vector3 &a_scale, const vector3 &a_shift)
+    {
+        matrix4 l;
+        for (int i = 0; i < 3; i++) { l.m[i][i] = a_scale.m[i]; l.m[i][3] = a_shift.m[i]; }
+        return l;
+    }
 }
 
 #endif //__RENDERER_FUNC_H
