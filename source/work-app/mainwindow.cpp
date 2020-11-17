@@ -105,7 +105,7 @@ void MainWindow::on_pushButton_doIt_clicked()
     l_r.set_buf_size(m_fa->width(), m_fa->height());
     l_r.set_fov(1, 1);
     l_r.set_cam(transf(zifanur::vector3(0, -15.5, 0), zifanur::vector3(0, 0, 0), zifanur::vector3(0, 0, 1)));
-    l_r.do_it();
+    l_r.do_it(14);
 
     QImage l_img(l_r.buf_width(), l_r.buf_height(), QImage::Format_ARGB32);
     for (unsigned i = 0; i < l_r.buf_height(); i++)

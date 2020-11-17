@@ -20,6 +20,7 @@
 // zifanur@hotmail.com
 
 #include "renderer.h"
+#include <future>
 
 namespace zifanur
 {
@@ -52,10 +53,26 @@ namespace zifanur
         for (unsigned i = 0; i < m_buf_height; i++)
             for (unsigned j = 0; j < m_buf_width; j++)
             {
-                trace_var l_tv(std::random_device()(),
-                                m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
+                trace_var l_tv(m_rand_dev(), m_buf_to_cam * matrix4(1, 0, 0, float(j), 0, -1, 0, float(i)));
                 m_buf[j + i * m_buf_width] = process_pixel(l_tv);
             }
+    }
+
+    void renderer::do_it(unsigned a_thread_num)
+    {
+        std::vector<std::future<void>> l_pool;
+        l_pool.reserve(a_thread_num);
+        for (unsigned i = 0; i < a_thread_num; i++)
+            l_pool.emplace_back(std::async(std::launch::async, [&, i]
+                {
+                    for (unsigned j = i; j < m_buf_width * m_buf_height; j += a_thread_num)
+                    {
+                        const matrix4 l_pix_to_buf(1, 0, 0, float(j % m_buf_width),
+                                                    0, -1, 0, float(j / m_buf_width));
+                        trace_var l_tv(std::random_device()(), m_buf_to_cam * l_pix_to_buf);
+                        m_buf[j] = process_pixel(l_tv);
+                    }
+                }));
     }
 
     void renderer::calc_buf_to_cam()

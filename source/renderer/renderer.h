@@ -55,6 +55,7 @@ namespace zifanur
         void add(material *a) { m_materials.push_back(a); }
 
         void do_it();
+        void do_it(unsigned a_thread_num);
 
     private:
         void calc_buf_to_cam();
@@ -64,6 +65,8 @@ namespace zifanur
         trace_var &cam_ray(trace_var &a);
         trace_var &process_pixel(trace_var &a);
 
+        std::random_device m_rand_dev;
+
         unsigned m_buf_width = 0, m_buf_height = 0;
         f_rgb *m_buf = nullptr;
 
@@ -72,7 +75,7 @@ namespace zifanur
 
         matrix4 m_cam;
 
-        unsigned m_rpp = 1000, m_depth = 10;
+        unsigned m_rpp = 6000, m_depth = 15;
 
         std::list<object *> m_objects;
         std::list<material *> m_materials;
